@@ -1,13 +1,14 @@
 package Sorter;
 
-public class MergeSort implements Sorter {
+public class MergeSort<T> implements Sorter{
+
     @Override
-    public void sort(int[] sequence) {
-        int[] tmpArray = new int[sequence.length];
+    public <T extends Comparable<? super T>> void sort(T[] sequence) {
+        T[] tmpArray = (T[]) new Comparable[sequence.length];
         mergeSort(sequence, tmpArray, 0, sequence.length - 1);
     }
 
-    private void mergeSort(int[] sequence, int[] tmpArray, int left, int right) {
+    private <T extends Comparable<? super T>> void mergeSort(T[] sequence, T[] tmpArray, int left, int right) {
         if (left < right) {
             int center = (left + right) / 2;
             mergeSort(sequence, tmpArray, left, center);
@@ -16,13 +17,13 @@ public class MergeSort implements Sorter {
         }
     }
 
-    private void merge(int[] sequence, int[] tmpArray, int positionLeft, int positionRight, int positionRightEnd) {
+    private <T extends Comparable<? super T>> void merge(T[] sequence, T[] tmpArray, int positionLeft, int positionRight, int positionRightEnd) {
         int positionTmp = positionLeft;
         int positionLeftEnd = positionRight - 1;
         int numberOfElements = positionRightEnd - positionLeft + 1;
 
         while (positionLeft <= positionLeftEnd && positionRight <= positionRightEnd) {
-            if (sequence[positionLeft] <= sequence[positionRight]) {
+            if (sequence[positionLeft].compareTo(sequence[positionRight]) <= 0) {
                 tmpArray[positionTmp++] = sequence[positionLeft++];
             } else {
                 tmpArray[positionTmp++] = sequence[positionRight++];

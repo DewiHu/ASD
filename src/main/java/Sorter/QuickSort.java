@@ -4,13 +4,13 @@ public class QuickSort implements Sorter {
     private Sorter sorter = new InsertionSort();
 
     @Override
-    public void sort(int[] sequence) {
+    public <T extends Comparable<? super T>> void sort(T[] sequence) {
         quickSort(sequence, 0, sequence.length - 1);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    private void quickSort(int[] sequence, int low, int high) {
-        int pivot;
+    private <T extends Comparable<? super T>> void quickSort(T[] sequence, int low, int high) {
+        T pivot;
         int CUTOFF = 10;
         if (low + CUTOFF > high) {
             sorter.sort(sequence);
@@ -31,9 +31,9 @@ public class QuickSort implements Sorter {
 
             int i, j;
             for (i = low, j = high - 1; ; ) {
-                while (sequence[i++] < pivot) {
+                while (sequence[i++].compareTo(pivot) <= 0) {
                 }
-                while (pivot < sequence[j--]) {
+                while (pivot.compareTo(sequence[j--]) < 0) {
                 }
                 if (i >= j) {
                     break;
@@ -48,8 +48,8 @@ public class QuickSort implements Sorter {
         }
     }
 
-    private void swap(int[] sequence, int position1, int position2) {
-        int temp = sequence[position1];
+    private <T extends Comparable<? super T>> void swap(T[] sequence, int position1, int position2) {
+        T temp = sequence[position1];
         sequence[position1] = sequence[position2];
         sequence[position2] = temp;
     }
