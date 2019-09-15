@@ -1,5 +1,6 @@
 package Sorter;
 
 public interface Sorter {
-    void sort(int[] sequence);
+
+    <T extends Comparable<? super T>> void sort(T[] sequence);
 }
